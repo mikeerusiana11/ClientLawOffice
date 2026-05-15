@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase-admin';
+import type { Json } from '@/types/database';
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,7 +18,7 @@ export async function POST(request: NextRequest) {
     const { error } = await supabase
       .from('site_content')
       .upsert(
-        { section, content, updated_at: new Date().toISOString() },
+        { section, content: content as Json, updated_at: new Date().toISOString() },
         { onConflict: 'section' }
       );
 
