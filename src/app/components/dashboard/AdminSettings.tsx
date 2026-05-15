@@ -110,11 +110,11 @@ export default function AdminSettings() {
         const s = sections.social as SiteSocialContent | undefined;
         const sv = sections.services as SiteService[] | undefined;
         const loadedContent = {
-          ...prev,
+          ...DEFAULT_CONTENT,
           ...(c ?? {}),
           ...(h ?? {}),
           ...(s ?? {}),
-          services: sv ?? prev.services,
+          services: sv ?? DEFAULT_CONTENT.services,
         };
         setContent(loadedContent);
         setInitialContent(loadedContent);
