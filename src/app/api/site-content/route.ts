@@ -1,5 +1,13 @@
 import { NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase-admin';
+import type { Json } from '@/types/database';
+
+type SiteContentRow = {
+  id: string;
+  section: string | null;
+  content: Json | null;
+  updated_at: string | null;
+};
 
 export async function GET() {
   try {
@@ -7,7 +15,10 @@ export async function GET() {
 
     const { data, error } = await supabase
       .from('site_content')
-      .select('*');
+      .select('id, section, content, updated_at') as {
+        data: SiteContentRow[] | null;
+        error: unknown;
+      };
 
     if (error) {
       console.error('site_content fetch error:', error);
