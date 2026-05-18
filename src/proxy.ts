@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@miller.law';
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
   const supabase = createServerClient(
