@@ -17,7 +17,7 @@ interface NotifItem {
   type: 'appointment';
   title: string;
   subtitle: string;
-  time: string;
+  time: string | null;
   read: boolean;
 }
 
@@ -159,7 +159,7 @@ export default function AdminTopBar({ activeSection, onNewAppointment, onNavigat
     onNavigate?.('appointments-requests');
   };
 
-  const formatTime = (iso: string) => {
+  const formatTime = (iso: string | null) => { if (!iso) return '';
     const diff = (Date.now() - new Date(iso).getTime()) / 1000;
     if (diff < 60) return 'Just now';
     if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
@@ -342,3 +342,5 @@ export default function AdminTopBar({ activeSection, onNewAppointment, onNavigat
     </div>
   );
 }
+
+

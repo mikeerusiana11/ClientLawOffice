@@ -42,7 +42,7 @@ export default function ClientNextAppointment() {
         .order('date', { ascending: true })
         .limit(1);
 
-      if (data && data.length > 0) setAppointment(data[0]);
+      if (data && data.length > 0) setAppointment(data[0] as unknown as Appointment);
       setLoading(false);
     };
     fetchNext();
