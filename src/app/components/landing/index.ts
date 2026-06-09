@@ -6,6 +6,7 @@ export { default as CivilLawServices } from '../CivilLawServices';
 export { default as SmartFAQ } from '../SmartFAQ';
 export { default as LocationMap } from '../LocationMap';
 export { default as LegalAssistantChat } from '../LegalAssistantChat';
+export { default as TestimonialsSection } from '../TestimonialsSection';
 export { default as Footer } from '../Footer';
 
 

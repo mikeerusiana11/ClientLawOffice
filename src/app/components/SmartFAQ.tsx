@@ -22,7 +22,7 @@ export default function SmartFAQ() {
     {
       question: 'How do I schedule a consultation?',
       answer:
-        'You can book a consultation directly through our website by clicking "Book a Consultation," or reach us via phone or email. Briefly describe your legal concern when making contact so we can prepare accordingly. All consultations are by appointment only — walk-ins are not accepted. Once you submit your request, the office will confirm your schedule, consultation format (in-person, phone, or video), and any applicable professional fees within one business day.',
+        'You can schedule a consultation by reaching us via phone or email. Briefly describe your legal concern when making contact so we can prepare accordingly. All consultations are by appointment only — walk-ins are not accepted. Once you submit your request, the office will confirm your schedule, consultation format (in-person, phone, or video), and any applicable professional fees within one business day.',
     },
     {
       question: 'Are consultations confidential?',
@@ -51,7 +51,7 @@ export default function SmartFAQ() {
       <div ref={ref} className="container mx-auto max-w-3xl">
         {/* Header */}
         <div className={`text-center mb-16 pre-animate ${isInView ? 'animate-fade-in-up' : ''}`}>
-          <h2 className="text-4xl font-bold text-[#1A2B3C] mb-4" style={{ fontFamily: 'Playfair Display' }}>
+          <h2 className="text-4xl font-bold text-[#1A2B3C] mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>
             Frequently Asked Questions
           </h2>
           <p className="text-lg text-[#6B7280]">
@@ -70,7 +70,7 @@ export default function SmartFAQ() {
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full px-6 py-4 flex items-center justify-between bg-white hover:bg-[#F9FAFB] transition-colors text-left"
               >
-                <h3 className="text-base font-semibold text-[#1A2B3C] pr-4" style={{ fontFamily: 'Playfair Display' }}>
+                <h3 className="text-base font-semibold text-[#1A2B3C] pr-4" style={{ fontFamily: 'var(--font-playfair)' }}>
                   {faq.question}
                 </h3>
                 <ChevronDown

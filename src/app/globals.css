@@ -10,6 +10,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-playfair: var(--font-playfair);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,16 +20,6 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  overflow-x: hidden;
-}
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
   --legalNavy: #1A2B3C;
   --legalGold: #D4AF37;
@@ -36,12 +27,7 @@ body {
 
 body {
   @apply font-sans antialiased bg-white text-slate-900;
-}
-
-h1, h2, h3 {
-  /* Using Playfair Display for headings to convey legal authority */
-  @apply font-serif;
-  color: var(--legalNavy);
+  overflow-x: hidden;
 }
 
 /* ── Smooth Scroll ── */

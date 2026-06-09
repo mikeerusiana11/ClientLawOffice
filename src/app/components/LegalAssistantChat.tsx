@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { X, Send, Scale, Loader2 } from 'lucide-react';
+import { X, Send, Scale, Loader2, MapPin } from 'lucide-react';
 
 interface Message {
   role: 'user' | 'assistant';
   content: string;
+  showMap?: boolean;
 }
 
 interface LegalAssistantChatProps {
@@ -15,8 +16,15 @@ interface LegalAssistantChatProps {
 
 const INITIAL_MESSAGE: Message = {
   role: 'assistant',
-  content: "Hello! I'm the Miller Law Office legal assistant. I can answer general questions about our services and help you understand your legal options. For specific legal advice, I'll always recommend scheduling a consultation with Attorney Miller. How can I help you today?",
+  content: "Hello! I'm the Miller Law Office legal assistant. I can answer general questions about our services and help you understand your legal options. For specific legal advice, I'll always recommend scheduling a consultation with Atty. Miller. How can I help you today?",
 };
+
+const QUICK_PROMPTS = [
+  'What services do you offer?',
+  'How do I book a consultation?',
+  'What are your fees?',
+  'Do you handle family law?',
+];
 
 export default function LegalAssistantChat({ isOpen, onClose }: LegalAssistantChatProps) {
   const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
@@ -35,8 +43,8 @@ export default function LegalAssistantChat({ isOpen, onClose }: LegalAssistantCh
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
 
-  const sendMessage = async () => {
-    const text = input.trim();
+  const sendMessage = async (overrideText?: string) => {
+    const text = (overrideText ?? input).trim();
     if (!text || loading) return;
 
     const userMessage: Message = { role: 'user', content: text };
@@ -52,13 +60,14 @@ export default function LegalAssistantChat({ isOpen, onClose }: LegalAssistantCh
         body: JSON.stringify({ messages: updated }),
       });
 
-      const data = await res.json() as { reply?: string; error?: string };
+      const data = await res.json() as { reply?: string; showMap?: boolean; error?: string };
 
       setMessages(prev => [
         ...prev,
         {
           role: 'assistant',
           content: data.reply || "I'm sorry, I couldn't process that. Please try again or contact our office directly.",
+          showMap: data.showMap ?? false,
         },
       ]);
     } catch {
@@ -98,12 +107,27 @@ export default function LegalAssistantChat({ isOpen, onClose }: LegalAssistantCh
         </button>
       </div>
 
+      {/* Quick prompts — only before user sends first message */}
+      {messages.length === 1 && !loading && (
+        <div className="flex flex-wrap gap-2 px-3 pt-3 pb-1 bg-slate-50 border-b border-slate-100">
+          {QUICK_PROMPTS.map(q => (
+            <button
+              key={q}
+              onClick={() => sendMessage(q)}
+              className="text-xs px-3 py-1.5 bg-white border border-slate-200 hover:border-[#D4AF37]/60 hover:bg-[#D4AF37]/5 rounded-full text-[#1A2B3C] transition-all whitespace-nowrap"
+            >
+              {q}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50 min-h-[300px] max-h-[400px]">
         {messages.map((msg, i) => (
           <div
             key={i}
-            className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+            className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
           >
             <div
               className={`max-w-[80%] px-3 py-2 rounded-xl text-sm leading-relaxed ${
@@ -114,6 +138,30 @@ export default function LegalAssistantChat({ isOpen, onClose }: LegalAssistantCh
             >
               {msg.content}
             </div>
+
+            {/* Inline map for location replies */}
+            {msg.showMap && (
+              <div className="mt-2 w-[85%] rounded-xl overflow-hidden border border-slate-200 shadow-sm">
+                <iframe
+                  src="https://maps.google.com/maps?q=9.3172933,123.2903507&z=16&output=embed"
+                  width="100%"
+                  height="160"
+                  loading="lazy"
+                  style={{ border: 0, display: 'block' }}
+                  allowFullScreen
+                  title="Miller Law Office location"
+                />
+                <a
+                  href="https://maps.google.com/?q=9.3172933,123.2903507"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-1 py-1.5 bg-white text-[11px] font-semibold text-[#D4AF37] hover:bg-slate-50 transition-colors"
+                >
+                  <MapPin size={11} />
+                  Open in Google Maps ↗
+                </a>
+              </div>
+            )}
           </div>
         ))}
         {loading && (
@@ -139,7 +187,7 @@ export default function LegalAssistantChat({ isOpen, onClose }: LegalAssistantCh
           className="flex-1 text-sm px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] disabled:opacity-50 bg-slate-50"
         />
         <button
-          onClick={sendMessage}
+          onClick={() => sendMessage()}
           disabled={!input.trim() || loading}
           className="w-9 h-9 bg-[#D4AF37] hover:bg-[#C49D2E] disabled:opacity-40 disabled:cursor-not-allowed rounded-lg flex items-center justify-center transition-colors flex-shrink-0"
           aria-label="Send message"

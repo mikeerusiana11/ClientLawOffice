@@ -1,24 +1,45 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { rateLimit, getIp } from '@/lib/rate-limit';
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
-const SYSTEM_PROMPT = `You are a helpful legal assistant for Miller Law Office, a boutique solo law practice based in Dumaguete City, Negros Oriental, Philippines, led by Attorney Abigail T. Miller, Esq.
+const MAX_MESSAGES = 20;
+const MAX_MESSAGE_LENGTH = 1000;
 
-Your role is to:
-- Answer general questions about the firm's legal services (family law, property/real estate, business/corporate law, civil/criminal defense, estate planning, notarial services)
-- Help visitors understand legal processes and terminology in plain language
-- Guide potential clients toward scheduling a consultation for specific legal advice
-- Provide general information about Philippine law relevant to the firm's practice areas
+const SYSTEM_PROMPT = `You are a friendly legal assistant for Miller Law Office, a boutique solo law practice in Dumaguete City, Negros Oriental, Philippines, led by Atty. Abigail T. Miller.
 
-Important rules:
-- Never provide specific legal advice or legal opinions — always recommend consulting with Attorney Miller directly
-- Keep responses concise and easy to understand
-- Be professional, warm, and approachable
-- If asked about pricing/fees, explain that fees vary by case and encourage scheduling a consultation
-- For appointments, direct users to use the "Schedule Consultation" button on the website
-- Do not discuss matters outside of the firm's practice areas`;
+FORMATTING RULES — follow these strictly:
+- Never use markdown: no asterisks, no bold, no bullet symbols, no headers, no dashes as list markers
+- Write in plain, conversational sentences only
+- Keep replies short — 2 to 4 sentences at most
+- If a question is vague or could go several ways, ask one short clarifying question before answering
+- End replies with a brief follow-up question when it feels natural (e.g. "Would you like to know more about that?" or "Is this related to a personal matter or a business concern?")
+
+Firm contact details (share when asked):
+Phone / WhatsApp / Viber: +63 917 631 7120
+Email: attyabigailtmiller@gmail.com
+Address: Dumaguete City, Negros Oriental, Philippines
+Office hours: Monday to Friday, 9:00 AM to 5:00 PM; Saturday by appointment; Sunday closed
+
+Practice areas: family law, property and real estate, business and corporate law, civil and criminal defense, estate planning, notarial services.
+
+Rules:
+- Never give specific legal advice — always recommend consulting Atty. Miller directly
+- For fees, explain they vary by case and encourage booking a consultation
+- To get in touch, tell users to click the Contact Us button on the website (WhatsApp, Viber, or phone)
+- Do not discuss topics outside the firm's practice areas
+
+Privacy reminders:
+- Every 3 to 4 exchanges, naturally remind the user not to share sensitive personal information in this chat — such as full names, addresses, ID numbers, case details, or financial information
+- Keep the reminder brief and friendly, for example: "Just a reminder — please avoid sharing sensitive personal details here. Save those for your private consultation with Atty. Miller."
+- Do not repeat the reminder in back-to-back messages`;
 
 export async function POST(request: NextRequest) {
+  // 20 requests per minute per IP
+  if (!rateLimit(`chat:${getIp(request)}`, 20, 60_000)) {
+    return NextResponse.json({ error: 'Too many requests. Please wait a moment.' }, { status: 429 });
+  }
+
   try {
     const { messages } = await request.json() as {
       messages?: { role: 'user' | 'assistant'; content: string }[];
@@ -26,6 +47,16 @@ export async function POST(request: NextRequest) {
 
     if (!messages || messages.length === 0) {
       return NextResponse.json({ error: 'Messages are required' }, { status: 400 });
+    }
+
+    // Prevent context-stuffing cost attacks
+    const trimmed = messages.slice(-MAX_MESSAGES);
+    const sanitized = trimmed
+      .filter(m => m.role === 'user' || m.role === 'assistant')
+      .map(m => ({ role: m.role, content: String(m.content).slice(0, MAX_MESSAGE_LENGTH) }));
+
+    if (sanitized.length === 0) {
+      return NextResponse.json({ error: 'No valid messages provided' }, { status: 400 });
     }
 
     const apiKey = process.env.GROQ_API_KEY;
@@ -43,7 +74,7 @@ export async function POST(request: NextRequest) {
         model: 'llama-3.1-8b-instant',
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
-          ...messages,
+          ...sanitized,
         ],
         max_tokens: 512,
         temperature: 0.7,
@@ -65,7 +96,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No response from chat service' }, { status: 502 });
     }
 
-    return NextResponse.json({ reply });
+    const lastUserMessage = sanitized.filter(m => m.role === 'user').at(-1)?.content ?? '';
+    const locationKeywords = /\b(location|address|where|map|directions?|how to get|find you|situated|office|visit)\b/i;
+    const showMap = locationKeywords.test(lastUserMessage);
+
+    return NextResponse.json({ reply, showMap });
   } catch (err) {
     console.error('Chat route error:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

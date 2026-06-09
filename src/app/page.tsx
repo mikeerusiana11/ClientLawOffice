@@ -7,6 +7,7 @@ import {
   HeroSection,
   AboutSection,
   CivilLawServices,
+  TestimonialsSection,
   SmartFAQ,
   LocationMap,
   LegalAssistantChat,
@@ -28,8 +29,9 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <CivilLawServices />
-      <SmartFAQ />
+      <TestimonialsSection />
       <LocationMap />
+      <SmartFAQ />
       <LegalAssistantChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
 
       {/* Floating Chat Button */}

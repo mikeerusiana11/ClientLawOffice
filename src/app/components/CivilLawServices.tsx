@@ -12,7 +12,7 @@ export default function CivilLawServices() {
       <div ref={ref} className="container mx-auto">
         {/* Header */}
         <div className={`text-center mb-16 pre-animate ${isInView ? 'animate-fade-in-up' : ''}`}>
-          <h2 className="text-4xl font-bold text-[#1A2B3C] mb-4" style={{ fontFamily: 'Playfair Display' }}>
+          <h2 className="text-4xl font-bold text-[#1A2B3C] mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>
             Practice Areas
           </h2>
           <p className="text-lg text-[#6B7280]">
@@ -34,7 +34,7 @@ export default function CivilLawServices() {
                 >
                   {service.icon}
                 </div>
-                <h3 className="text-xl font-bold text-[#1A2B3C] mt-2" style={{ fontFamily: 'Playfair Display' }}>
+                <h3 className="text-xl font-bold text-[#1A2B3C] mt-2" style={{ fontFamily: 'var(--font-playfair)' }}>
                   {service.title}
                 </h3>
               </div>

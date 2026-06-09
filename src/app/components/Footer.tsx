@@ -4,7 +4,7 @@ import { Phone, Mail, MapPin, Scale } from 'lucide-react';
 import { useSiteContent } from '../hooks/useSiteContent';
 
 export default function Footer() {
-  const { contact, services, hero, social } = useSiteContent();
+  const { contact, services, hero } = useSiteContent();
 
   return (
     <footer className="bg-[#1A2B3C] text-white py-16 px-6">
@@ -14,7 +14,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <Scale size={22} style={{ color: '#D4AF37' }} />
-              <h3 className="text-xl font-bold" style={{ fontFamily: 'Playfair Display' }}>
+              <h3 className="text-xl font-bold" style={{ fontFamily: 'var(--font-playfair)' }}>
                 Miller Law Office
               </h3>
             </div>
@@ -28,7 +28,7 @@ export default function Footer() {
 
           {/* Column 2 - Contact Details */}
           <div>
-            <h4 className="text-lg font-bold mb-6" style={{ fontFamily: 'Playfair Display' }}>
+            <h4 className="text-lg font-bold mb-6" style={{ fontFamily: 'var(--font-playfair)' }}>
               Contact Details
             </h4>
             <div className="space-y-3 text-sm">
@@ -51,7 +51,7 @@ export default function Footer() {
 
           {/* Column 3 - Office Hours & Practice Areas */}
           <div>
-            <h4 className="text-lg font-bold mb-6" style={{ fontFamily: 'Playfair Display' }}>
+            <h4 className="text-lg font-bold mb-6" style={{ fontFamily: 'var(--font-playfair)' }}>
               Office Hours
             </h4>
             <div className="text-sm text-white/80 space-y-2 mb-8">
@@ -60,7 +60,7 @@ export default function Footer() {
               <p><strong>Sun:</strong> {contact.hoursSun}</p>
             </div>
 
-            <h4 className="text-lg font-bold mb-4" style={{ fontFamily: 'Playfair Display' }}>
+            <h4 className="text-lg font-bold mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>
               Practice Areas
             </h4>
             <ul className="text-sm text-white/70 space-y-2">
@@ -72,7 +72,7 @@ export default function Footer() {
 
           {/* Column 4 - Quick Links & Social */}
           <div>
-            <h4 className="text-lg font-bold mb-6" style={{ fontFamily: 'Playfair Display' }}>
+            <h4 className="text-lg font-bold mb-6" style={{ fontFamily: 'var(--font-playfair)' }}>
               Quick Links
             </h4>
             <ul className="text-sm text-white/70 space-y-2 mb-8">
@@ -98,7 +98,7 @@ export default function Footer() {
               </li>
             </ul>
 
-            <h4 className="text-lg font-bold mb-4" style={{ fontFamily: 'Playfair Display' }}>
+            <h4 className="text-lg font-bold mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>
               Quick Contact
             </h4>
             <div className="space-y-3">

@@ -29,7 +29,7 @@ export default function AboutSection() {
       <div ref={ref} className="container mx-auto max-w-4xl">
         {/* About Attorney Introduction */}
         <div className={`text-center mb-16 pre-animate ${isInView ? 'animate-fade-in-up' : ''}`}>
-          <h2 className="text-4xl font-bold text-[#1A2B3C] mb-6" style={{ fontFamily: 'Playfair Display' }}>
+          <h2 className="text-4xl font-bold text-[#1A2B3C] mb-6" style={{ fontFamily: 'var(--font-playfair)' }}>
             About Atty. Abigail T. Miller
           </h2>
           <p className="text-lg text-[#6B7280] leading-relaxed max-w-3xl mx-auto">
@@ -47,7 +47,7 @@ export default function AboutSection() {
               <div className="w-14 h-14 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Icon size={26} style={{ color: '#D4AF37' }} />
               </div>
-              <h3 className="text-lg font-bold mb-3" style={{ fontFamily: 'Playfair Display', color: '#D4AF37' }}>{title}</h3>
+              <h3 className="text-lg font-bold mb-3" style={{ fontFamily: 'var(--font-playfair)', color: '#D4AF37' }}>{title}</h3>
               <p className="text-sm text-[#6B7280] leading-relaxed">{desc}</p>
             </div>
           ))}
