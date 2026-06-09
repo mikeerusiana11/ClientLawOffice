@@ -1,6 +1,6 @@
 'use client';
 
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, Scale } from 'lucide-react';
 import { useSiteContent } from '../hooks/useSiteContent';
 
 export default function Footer() {
@@ -9,11 +9,11 @@ export default function Footer() {
   return (
     <footer className="bg-[#1A2B3C] text-white py-16 px-6">
       <div className="container mx-auto mb-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {/* Column 1 - Company Info */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-2xl">⚖</span>
+              <Scale size={22} style={{ color: '#D4AF37' }} />
               <h3 className="text-xl font-bold" style={{ fontFamily: 'Playfair Display' }}>
                 Miller Law Office
               </h3>
@@ -126,9 +126,9 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className="flex items-center justify-between text-sm text-white/60 border-t border-white/20 pt-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-sm text-white/60 border-t border-white/20 pt-6">
           <p>&copy; 2026 Miller Law Office. All rights reserved.</p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap gap-4">
             <a href="#" className="hover:text-[#D4AF37] transition-colors">
               Privacy Policy
             </a>

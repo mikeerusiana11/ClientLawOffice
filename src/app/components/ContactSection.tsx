@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle, Scale } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
 import { useSiteContent } from '../hooks/useSiteContent';
 
@@ -225,7 +225,7 @@ export default function ContactSection() {
             {/* Quick CTA */}
             <div className="bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-2xl p-6 flex items-center gap-4">
               <div className="w-12 h-12 bg-[#D4AF37] rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-lg font-extrabold text-[#1A2B3C]">⚖</span>
+                <Scale size={20} className="text-[#1A2B3C]" />
               </div>
               <div>
                 <p className="text-sm font-bold text-[#1A2B3C]">Ready to discuss your case?</p>

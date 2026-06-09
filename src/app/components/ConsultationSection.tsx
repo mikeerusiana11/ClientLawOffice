@@ -19,9 +19,6 @@ export default function ConsultationSection() {
           </p>
         </div>
         
-        <button className="px-8 py-3 bg-[#D4AF37] text-[#1A2B3C] font-semibold rounded-lg hover:bg-[#E5C158] transition-colors whitespace-nowrap flex-shrink-0">
-          Book Now
-        </button>
       </div>
     </section>
   );

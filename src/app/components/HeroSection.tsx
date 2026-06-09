@@ -4,11 +4,6 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { Award, BookOpen, Star, Scale, Shield, Users, Briefcase, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
 
-interface HeroSectionProps {
-  onScheduleClick: () => void;
-}
-
-
 const PHOTOS = [
   '/474831539_10227071476280562_3922689921505130759_n.jpg',
   '/474877647_10227072308181359_3499186668188173376_n.jpg',
@@ -46,8 +41,11 @@ const SLIDES: Slide[] = [
   ...PHOTOS.map((src, i) => ({ type: 'photo' as SlideType, label: `Photo ${i + 1}`, photoSrc: src })),
 ];
 
-export default function HeroSection({ onScheduleClick }: HeroSectionProps) {
+const PRACTICE_START_YEAR = 2024;
+
+export default function HeroSection() {
   const { ref, isInView } = useInView(0.15);
+  const yearsExperience = new Date().getFullYear() - PRACTICE_START_YEAR;
   const [slide, setSlide] = useState(0);
   const [fading, setFading] = useState(false);
   const slideRef = useRef(0);
@@ -87,13 +85,13 @@ export default function HeroSection({ onScheduleClick }: HeroSectionProps) {
   const currentSlide = SLIDES[slide];
 
   return (
-    <section className="min-h-screen bg-white px-6 flex items-center border-b border-[#E5E7EB]">
-      <div ref={ref} className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center pt-20 lg:pt-24 py-12">
+    <section className="bg-white px-6 border-b border-[#E5E7EB]">
+      <div ref={ref} className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center pt-24 lg:pt-28 pb-12">
 
         {/* ── Left: Copy only — clean and uncluttered ── */}
         <div>
           <div className={`flex items-center gap-2 mb-6 pre-animate ${isInView ? 'animate-fade-in-up' : ''}`}>
-            <span style={{ color: '#D4AF37' }} className="font-semibold text-sm">⚖</span>
+            <Scale size={14} style={{ color: '#D4AF37' }} />
             <span style={{ color: '#D4AF37' }} className="font-medium">Boutique Solo Practice. Trusted Legal Solutions.</span>
           </div>
 
@@ -108,17 +106,10 @@ export default function HeroSection({ onScheduleClick }: HeroSectionProps) {
             Miller Law Office, headed by Atty. Abigail T. Miller, provides ethical, practical legal solutions for civil, criminal, family law, real estate, estate planning, and corporate matters. Direct attorney access ensures your case receives dedicated attention and sound legal advice.
           </p>
 
-          <button
-            onClick={onScheduleClick}
-            className={`bg-[#D4AF37] text-[#1A2B3C] font-semibold px-8 py-3 rounded-full hover:bg-[#C49D2E] hover:scale-105 active:scale-95 transition-all flex items-center gap-2 pre-animate ${isInView ? 'animate-fade-in-up delay-300' : ''}`}
-          >
-            Book a Consultation <span>→</span>
-          </button>
-
           {/* Stats strip */}
           <div className={`mt-10 grid grid-cols-3 gap-6 pre-animate ${isInView ? 'animate-fade-in-up delay-400' : ''}`}>
             {[
-              { value: '15+', label: 'Years Experience' },
+              { value: `${yearsExperience}+`, label: 'Years Experience' },
               { value: '95%', label: 'Success Rate' },
               { value: '8+',  label: 'Practice Areas' },
             ].map((s, i) => (
@@ -135,8 +126,8 @@ export default function HeroSection({ onScheduleClick }: HeroSectionProps) {
         </div>
 
         {/* ── Right: Rotating Attorney Card (restored from original) ── */}
-        <div className={`relative bg-[#1A2B3C] rounded-2xl p-10 text-white border border-[#D4AF37]/20 shadow-2xl pre-animate ${isInView ? 'animate-fade-in-right delay-100' : ''}`}
-          style={{ minHeight: '520px', display: 'flex', flexDirection: 'column' }}>
+        <div className={`relative bg-[#1A2B3C] rounded-2xl p-6 lg:p-10 text-white border border-[#D4AF37]/20 shadow-2xl pre-animate ${isInView ? 'animate-fade-in-right delay-100' : ''}`}
+          style={{ display: 'flex', flexDirection: 'column' }}>
 
           {/* Card Header */}
           <div className="flex items-center justify-between mb-8 pb-6 border-b border-white/10">
@@ -167,7 +158,7 @@ export default function HeroSection({ onScheduleClick }: HeroSectionProps) {
 
             {/* Credentials slide */}
             {currentSlide.type === 'credentials' && (
-              <div className="grid grid-cols-2 gap-4" style={{ height: '320px', gridTemplateRows: '1fr 1fr' }}>
+              <div className="grid grid-cols-2 gap-3" style={{ height: '260px', gridTemplateRows: '1fr 1fr' }}>
                 {CREDENTIALS.map(({ icon: Icon, title, desc }) => (
                   <div key={title} className="bg-gradient-to-br from-white/15 to-white/5 border border-[#D4AF37]/30 rounded-xl p-5 hover:border-[#D4AF37]/60 hover:bg-white/20 transition-all flex flex-col justify-center">
                     <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-3"
@@ -183,7 +174,7 @@ export default function HeroSection({ onScheduleClick }: HeroSectionProps) {
 
             {/* Practice areas slide */}
             {currentSlide.type === 'practice' && (
-              <div className="grid grid-cols-2 gap-4" style={{ height: '320px', gridTemplateRows: '1fr 1fr' }}>
+              <div className="grid grid-cols-2 gap-3" style={{ height: '260px', gridTemplateRows: '1fr 1fr' }}>
                 {PRACTICE_AREAS.map(({ icon: Icon, title, desc }) => (
                   <div key={title} className="bg-gradient-to-br from-white/15 to-white/5 border border-[#D4AF37]/30 rounded-xl p-5 hover:border-[#D4AF37]/60 hover:bg-white/20 transition-all flex flex-col justify-center">
                     <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-3"
@@ -199,7 +190,7 @@ export default function HeroSection({ onScheduleClick }: HeroSectionProps) {
 
             {/* Photo slide */}
             {currentSlide.type === 'photo' && currentSlide.photoSrc && (
-              <div className="relative w-full rounded-xl overflow-hidden" style={{ height: '320px' }}>
+              <div className="relative w-full rounded-xl overflow-hidden" style={{ height: '260px' }}>
                 <img
                   src={currentSlide.photoSrc}
                   aria-hidden="true"
@@ -220,7 +211,7 @@ export default function HeroSection({ onScheduleClick }: HeroSectionProps) {
           </div>
 
           {/* Arrow Controls */}
-          <div className="absolute top-1/2 left-4 right-4 -translate-y-1/2 flex items-center justify-between pointer-events-none z-10">
+          <div className="hidden sm:flex absolute top-1/2 left-4 right-4 -translate-y-1/2 items-center justify-between pointer-events-none z-10">
             <button onClick={prev}
               className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors pointer-events-auto">
               <ChevronLeft size={20} className="text-white" />

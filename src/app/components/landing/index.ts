@@ -5,9 +5,7 @@ export { default as AboutSection } from '../AboutSection';
 export { default as CivilLawServices } from '../CivilLawServices';
 export { default as SmartFAQ } from '../SmartFAQ';
 export { default as LocationMap } from '../LocationMap';
-export { default as AppointmentModal } from '../AppointmentModal';
 export { default as LegalAssistantChat } from '../LegalAssistantChat';
 export { default as Footer } from '../Footer';
-export { default as LoginModal } from '../LoginModal';
 
 

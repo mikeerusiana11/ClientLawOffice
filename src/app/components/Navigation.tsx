@@ -1,16 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { Scale, LogIn, Menu, X } from 'lucide-react';
+import { Scale, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import LoginModal from './LoginModal';
 
-interface NavigationProps {
-  onScheduleClick?: () => void;
-}
-
-export default function Navigation({ onScheduleClick }: NavigationProps) {
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -54,19 +48,6 @@ return (
             <Link href="#faq" className="text-[#1A2B3C] hover:text-[#D4AF37] transition-colors font-medium">
               FAQ
             </Link>
-            <button
-              onClick={() => setIsLoginModalOpen(true)}
-              className="flex items-center gap-2 text-[#1A2B3C] hover:text-[#D4AF37] transition-colors font-medium"
-            >
-              <LogIn size={18} />
-              Login
-            </button>
-            <button
-              onClick={onScheduleClick}
-              className="bg-[#D4AF37] text-[#1A2B3C] font-semibold px-6 py-2.5 rounded-full hover:bg-[#C49D2E] hover:scale-105 active:scale-95 transition-all"
-            >
-              Book a Consultation
-            </button>
           </div>
 
           {/* Mobile Hamburger */}
@@ -86,23 +67,10 @@ return (
             <Link href="#services" onClick={closeMenu} className="text-[#1A2B3C] hover:text-[#D4AF37] font-medium py-2">Services</Link>
             <Link href="#location" onClick={closeMenu} className="text-[#1A2B3C] hover:text-[#D4AF37] font-medium py-2">Location</Link>
             <Link href="#faq" onClick={closeMenu} className="text-[#1A2B3C] hover:text-[#D4AF37] font-medium py-2">FAQ</Link>
-            <button
-              onClick={() => { closeMenu(); setIsLoginModalOpen(true); }}
-              className="flex items-center gap-2 text-[#1A2B3C] hover:text-[#D4AF37] font-medium py-2"
-            >
-              <LogIn size={18} /> Login
-            </button>
-            <button
-              onClick={() => { closeMenu(); onScheduleClick?.(); }}
-              className="bg-[#D4AF37] text-[#1A2B3C] font-semibold px-6 py-3 rounded-full hover:bg-[#C49D2E] transition-colors w-full"
-            >
-              Book a Consultation
-            </button>
           </div>
         )}
       </nav>
 
-      <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
     </>
   );
 }

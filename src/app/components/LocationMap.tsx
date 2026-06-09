@@ -101,13 +101,6 @@ export default function LocationMap() {
                 </div>
               </div>
 
-              {/* CTA Button */}
-              <button
-                onClick={() => (document.querySelector('[aria-label="Open appointment modal"]') as HTMLElement)?.click()}
-                className="w-full mt-8 bg-[#D4AF37] hover:bg-[#C49D2E] text-[#1A2B3C] font-bold py-3 px-6 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95 text-sm"
-              >
-                Book a Consultation
-              </button>
             </div>
           </div>
         </div>
