@@ -33,7 +33,7 @@ export default function AboutSection() {
             About Atty. Abigail T. Miller
           </h2>
           <p className="text-lg text-[#6B7280] leading-relaxed max-w-3xl mx-auto">
-            Atty. Abigail T. Miller brings her growing experience in providing ethical legal solutions. She is committed to giving clients direct access to her services, straightforward advice, and dedicated focus on their legal matters. Whether handling civil disputes, family concerns, real estate transactions, or corporate matters, she works with the conviction that honest communication and practical guidance make all the difference.
+            Atty. Abigail T. Miller is dedicated to providing ethical legal solutions. She is committed to giving clients direct access to her services, straightforward advice, and dedicated focus on their legal matters. Whether handling civil disputes, family concerns, real estate transactions, or corporate matters, she works with the conviction that honest communication and practical guidance make all the difference.
           </p>
         </div>
 
@@ -47,7 +47,7 @@ export default function AboutSection() {
               <div className="w-14 h-14 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Icon size={26} style={{ color: '#D4AF37' }} />
               </div>
-              <h3 className="text-lg font-bold mb-3" style={{ fontFamily: 'var(--font-playfair)', color: '#D4AF37' }}>{title}</h3>
+              <h3 className="text-lg font-bold mb-3" style={{ fontFamily: 'var(--font-playfair)', color: '#A67C00' }}>{title}</h3>
               <p className="text-sm text-[#6B7280] leading-relaxed">{desc}</p>
             </div>
           ))}

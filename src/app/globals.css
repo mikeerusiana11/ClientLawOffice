@@ -128,3 +128,10 @@ html {
 .chat-panel-exit       { animation: slideOutRight    0.22s ease forwards; }
 .page-transition-enter { animation: pageTransitionIn 0.35s ease forwards; }
 .spin-gold             { animation: spinGold 0.9s linear infinite; }
+
+/* ── Nav dropdown ── */
+@keyframes navSlideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.nav-dropdown-enter { animation: navSlideDown 0.2s ease forwards; }

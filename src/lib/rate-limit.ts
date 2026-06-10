@@ -39,11 +39,14 @@ export function rateLimit(key: string, max: number, windowMs: number): boolean {
   return true;
 }
 
-/** Extracts the caller IP from Vercel / standard proxy headers. */
+/** Extracts the caller IP from Vercel / standard proxy headers.
+ * x-real-ip is set by Vercel's edge and cannot be spoofed by clients.
+ * x-forwarded-for[0] is client-supplied and can be forged to bypass rate limits.
+ */
 export function getIp(request: Request): string {
   return (
-    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
     request.headers.get('x-real-ip') ||
+    request.headers.get('x-forwarded-for')?.split(',').at(-1)?.trim() ||
     'unknown'
   );
 }

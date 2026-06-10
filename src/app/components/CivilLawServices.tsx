@@ -1,11 +1,41 @@
 'use client';
 
+import {
+  Users, Home, Briefcase, Scale, ScrollText, PenLine,
+  FileText, Heart, Building2, ShieldCheck, type LucideIcon,
+} from 'lucide-react';
 import { useInView } from '../hooks/useInView';
 import { useSiteContent } from '../hooks/useSiteContent';
 
+const ICON_MAP: Record<string, LucideIcon> = {
+  Users, Home, Briefcase, Scale, ScrollText, PenLine,
+  FileText, Heart, Building2, ShieldCheck,
+};
+
+function ServiceIcon({ name }: { name: string }) {
+  const Icon = ICON_MAP[name] ?? Scale;
+  return <Icon size={26} className="text-white" />;
+}
+
+function ServiceSkeleton() {
+  return (
+    <div className="h-full bg-white rounded-2xl p-8 border border-[#E5E7EB] animate-pulse">
+      <div className="flex items-start gap-4 mb-4">
+        <div className="w-14 h-14 rounded-lg bg-[#E5E7EB] flex-shrink-0" />
+        <div className="w-36 h-6 rounded bg-[#E5E7EB] mt-2" />
+      </div>
+      <div className="space-y-2">
+        <div className="w-full h-3 rounded bg-[#E5E7EB]" />
+        <div className="w-5/6 h-3 rounded bg-[#E5E7EB]" />
+        <div className="w-4/6 h-3 rounded bg-[#E5E7EB]" />
+      </div>
+    </div>
+  );
+}
+
 export default function CivilLawServices() {
   const { ref, isInView } = useInView();
-  const { services } = useSiteContent();
+  const { services, loading } = useSiteContent();
 
   return (
     <section id="services" className="bg-white py-24 px-6 border-b border-[#E5E7EB]">
@@ -22,17 +52,18 @@ export default function CivilLawServices() {
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
+          {loading && Array.from({ length: 6 }).map((_, i) => <ServiceSkeleton key={i} />)}
+          {!loading && services.map((service, index) => (
             <div
               key={service.id}
               className={`h-full bg-gradient-to-br from-white to-[#F9FAFB] rounded-2xl p-8 border border-[#E5E7EB] hover:shadow-lg hover:-translate-y-2 hover:border-[#D4AF37] transition-all duration-300 pre-animate ${isInView ? `animate-fade-in-up delay-${Math.min((index + 1) * 100, 400)}` : ''}`}
             >
               <div className="flex items-start gap-4 mb-4">
                 <div
-                  className="w-14 h-14 rounded-lg flex items-center justify-center flex-shrink-0 text-2xl"
-                  style={{ backgroundColor: '#D4AF37' }}
+                  className="w-14 h-14 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: '#1A2B3C' }}
                 >
-                  {service.icon}
+                  <ServiceIcon name={service.icon} />
                 </div>
                 <h3 className="text-xl font-bold text-[#1A2B3C] mt-2" style={{ fontFamily: 'var(--font-playfair)' }}>
                   {service.title}

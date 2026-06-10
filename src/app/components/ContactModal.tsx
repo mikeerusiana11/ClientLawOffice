@@ -1,6 +1,6 @@
 'use client';
 
-import { X, Phone, MapPin, ChevronRight } from 'lucide-react';
+import { X, Phone, MapPin, ChevronRight, ExternalLink } from 'lucide-react';
 import { useEffect } from 'react';
 
 interface Props {
@@ -136,12 +136,12 @@ export default function ContactModal({ isOpen, onClose }: Props) {
               className="text-[11px] font-semibold transition-colors hover:opacity-70"
               style={{ color: '#D4AF37' }}
             >
-              Open in Maps ↗
+              Open in Maps <ExternalLink size={11} className="inline" />
             </a>
           </div>
           <div className="rounded-xl overflow-hidden border border-[#E5E7EB] shadow-sm">
             <iframe
-              src="https://maps.google.com/maps?q=9.3172933,123.2903507&z=16&output=embed"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=123.2853507%2C9.3122933%2C123.2953507%2C9.3222933&layer=mapnik&marker=9.3172933%2C123.2903507"
               width="100%"
               height="180"
               loading="lazy"

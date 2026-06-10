@@ -32,7 +32,7 @@ export interface SiteSocialContent {
 }
 
 export const DEFAULT_CONTACT: SiteContactContent = {
-  phone: '+63 9176317120',
+  phone: '+63 917 631 7120',
   email: 'attyabigailtmiller@gmail.com',
   address: '878R+W4, Dumaguete City, Negros Oriental, Philippines',
   mapUrl: '',
@@ -54,12 +54,12 @@ export const DEFAULT_SOCIAL: SiteSocialContent = {
 };
 
 export const DEFAULT_SERVICES: SiteService[] = [
-  { id: '1', title: 'Family & Personal Law', description: 'Family law, custody, annulment, support, estate planning, inheritance, and succession matters.', icon: '👨‍👩‍👧‍👦' },
-  { id: '2', title: 'Property & Real Estate', description: 'Property disputes, real estate transactions, contracts, documentation, and legal compliance.', icon: '🏠' },
-  { id: '3', title: 'Business & Corporate Law', description: 'Business registration, corporate matters, contracts, compliance, and legal documentation.', icon: '💼' },
-  { id: '4', title: 'Civil & Criminal Defense', description: 'Civil litigation, breach of contract, debt recovery, criminal defense, and dispute resolution.', icon: '⚖️' },
-  { id: '5', title: 'Estate Planning', description: 'Estate settlement, inheritance matters, and succession planning.', icon: '📋' },
-  { id: '6', title: 'Notarial Services', description: 'Document authentication, certification, and notarization services.', icon: '✍️' },
+  { id: '1', title: 'Family & Personal Law', description: 'Custody, annulment, legal separation, child support, and other family and personal legal matters.', icon: 'Users' },
+  { id: '2', title: 'Property & Real Estate', description: 'Property disputes, real estate transactions, contracts, documentation, and legal compliance.', icon: 'Home' },
+  { id: '3', title: 'Business & Corporate Law', description: 'Business registration, corporate matters, contracts, compliance, and legal documentation.', icon: 'Briefcase' },
+  { id: '4', title: 'Civil & Criminal Defense', description: 'Civil litigation, breach of contract, debt recovery, criminal defense, and dispute resolution.', icon: 'Scale' },
+  { id: '5', title: 'Estate Planning', description: 'Estate settlement, inheritance matters, and succession planning.', icon: 'ScrollText' },
+  { id: '6', title: 'Notarial Services', description: 'Document authentication, certification, and notarization services.', icon: 'PenLine' },
 ];
 
 interface SiteContentResult {
@@ -93,7 +93,7 @@ export function useSiteContent(): SiteContentResult {
         cacheTime = Date.now();
         setSections(cache!);
       })
-      .catch(() => { /* use defaults */ })
+      .catch((err) => { console.error('Failed to load site content, using defaults:', err); })
       .finally(() => setLoading(false));
   }, []);
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { X, Send, Scale, Loader2, MapPin } from 'lucide-react';
+import { X, Send, Scale, Loader2, MapPin, ExternalLink } from 'lucide-react';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -16,7 +16,7 @@ interface LegalAssistantChatProps {
 
 const INITIAL_MESSAGE: Message = {
   role: 'assistant',
-  content: "Hello! I'm the Miller Law Office legal assistant. I can answer general questions about our services and help you understand your legal options. For specific legal advice, I'll always recommend scheduling a consultation with Atty. Miller. How can I help you today?",
+  content: "Hello! I'm the Miller Law Office legal assistant. I can answer general questions about our services and help you understand your legal options. For specific legal advice, I'll always recommend scheduling a consultation with Atty. Miller.\n\nPlease avoid sharing sensitive personal details here — such as full names, ID numbers, case details, or financial information. Save those for your private consultation. How can I help you today?",
 };
 
 const QUICK_PROMPTS = [
@@ -66,7 +66,7 @@ export default function LegalAssistantChat({ isOpen, onClose }: LegalAssistantCh
         ...prev,
         {
           role: 'assistant',
-          content: data.reply || "I'm sorry, I couldn't process that. Please try again or contact our office directly.",
+          content: data.reply || data.error || "I'm sorry, I couldn't process that. Please try again or contact our office directly.",
           showMap: data.showMap ?? false,
         },
       ]);
@@ -130,7 +130,7 @@ export default function LegalAssistantChat({ isOpen, onClose }: LegalAssistantCh
             className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
           >
             <div
-              className={`max-w-[80%] px-3 py-2 rounded-xl text-sm leading-relaxed ${
+              className={`max-w-[80%] px-3 py-2 rounded-xl text-sm leading-relaxed whitespace-pre-wrap ${
                 msg.role === 'user'
                   ? 'bg-[#1A2B3C] text-white rounded-br-sm'
                   : 'bg-white text-slate-700 border border-slate-200 rounded-bl-sm shadow-sm'
@@ -143,7 +143,7 @@ export default function LegalAssistantChat({ isOpen, onClose }: LegalAssistantCh
             {msg.showMap && (
               <div className="mt-2 w-[85%] rounded-xl overflow-hidden border border-slate-200 shadow-sm">
                 <iframe
-                  src="https://maps.google.com/maps?q=9.3172933,123.2903507&z=16&output=embed"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=123.2853507%2C9.3122933%2C123.2953507%2C9.3222933&layer=mapnik&marker=9.3172933%2C123.2903507"
                   width="100%"
                   height="160"
                   loading="lazy"
@@ -158,7 +158,8 @@ export default function LegalAssistantChat({ isOpen, onClose }: LegalAssistantCh
                   className="flex items-center justify-center gap-1 py-1.5 bg-white text-[11px] font-semibold text-[#D4AF37] hover:bg-slate-50 transition-colors"
                 >
                   <MapPin size={11} />
-                  Open in Google Maps ↗
+                  Open in Google Maps
+                  <ExternalLink size={10} />
                 </a>
               </div>
             )}
@@ -183,6 +184,7 @@ export default function LegalAssistantChat({ isOpen, onClose }: LegalAssistantCh
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && !e.shiftKey && sendMessage()}
           placeholder="Ask a legal question..."
+          maxLength={1000}
           disabled={loading}
           className="flex-1 text-sm px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] disabled:opacity-50 bg-slate-50"
         />

@@ -73,10 +73,9 @@ export default function Navigation() {
               <Link
                 key={id}
                 href={href}
-                className="transition-colors font-medium text-sm"
-                style={{ color: activeSection === id ? '#D4AF37' : '#1A2B3C' }}
-                onMouseEnter={e => { if (activeSection !== id) (e.target as HTMLElement).style.color = '#D4AF37'; }}
-                onMouseLeave={e => { if (activeSection !== id) (e.target as HTMLElement).style.color = '#1A2B3C'; }}
+                className={`transition-colors font-medium text-sm hover:text-[#A67C00] ${
+                  activeSection === id ? 'text-[#A67C00]' : 'text-[#1A2B3C]'
+                }`}
               >
                 {label}
               </Link>
@@ -102,7 +101,7 @@ export default function Navigation() {
 
         {/* Mobile Dropdown */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white border-t border-[#E5E7EB] px-6 py-4 flex flex-col gap-4">
+          <div className="md:hidden bg-white border-t border-[#E5E7EB] px-6 py-4 flex flex-col gap-4 nav-dropdown-enter">
             {[
               { href: '#about', label: 'About', id: 'about' },
               { href: '#services', label: 'Services', id: 'services' },
@@ -114,8 +113,9 @@ export default function Navigation() {
                 key={id}
                 href={href}
                 onClick={closeMenu}
-                className="font-medium py-2 transition-colors"
-                style={{ color: activeSection === id ? '#D4AF37' : '#1A2B3C' }}
+                className={`font-medium py-2 transition-colors hover:text-[#A67C00] ${
+                  activeSection === id ? 'text-[#A67C00]' : 'text-[#1A2B3C]'
+                }`}
               >
                 {label}
               </Link>

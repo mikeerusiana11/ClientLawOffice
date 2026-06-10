@@ -23,13 +23,14 @@ export default function LocationMap() {
           {/* Map */}
           <div className="rounded-2xl overflow-hidden shadow-xl border border-[#E5E7EB] bg-gray-100 min-h-[400px]">
             <iframe
-              src="https://maps.google.com/maps?q=9.3172933,123.2903507&z=18&output=embed"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=123.2853507%2C9.3122933%2C123.2953507%2C9.3222933&layer=mapnik&marker=9.3172933%2C123.2903507"
               width="100%"
               height="400"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
+              title="Miller Law Office location"
             ></iframe>
           </div>
 
@@ -54,7 +55,7 @@ export default function LocationMap() {
                     </div>
                     <h4 className="text-sm font-extrabold text-[#1A2B3C] uppercase tracking-wide">Address</h4>
                   </div>
-                  <p className="text-[#6B7280] ml-13 text-sm leading-relaxed" style={{ whiteSpace: 'pre-line' }}>
+                  <p className="text-[#6B7280] ml-[3.25rem] text-sm leading-relaxed" style={{ whiteSpace: 'pre-line' }}>
                     {contact.address}
                   </p>
                 </div>
@@ -67,7 +68,7 @@ export default function LocationMap() {
                     </div>
                     <h4 className="text-sm font-extrabold text-[#1A2B3C] uppercase tracking-wide">Hours</h4>
                   </div>
-                  <div className="space-y-1 ml-13 text-[#6B7280] text-sm">
+                  <div className="space-y-1 ml-[3.25rem] text-[#6B7280] text-sm">
                     <p><strong>Mon-Fri:</strong> {contact.hoursWeekday}</p>
                     <p><strong>Sat:</strong> {contact.hoursSat}</p>
                     <p><strong>Sun:</strong> {contact.hoursSun}</p>
@@ -82,7 +83,7 @@ export default function LocationMap() {
                     </div>
                     <h4 className="text-sm font-extrabold text-[#1A2B3C] uppercase tracking-wide">Phone</h4>
                   </div>
-                  <a href={`tel:${contact.phone.replace(/\s/g, '')}`} className="text-[#D4AF37] hover:text-[#1A2B3C] font-semibold transition-colors text-sm ml-13">
+                  <a href={`tel:${contact.phone.replace(/\s/g, '')}`} className="text-[#D4AF37] hover:text-[#1A2B3C] font-semibold transition-colors text-sm ml-[3.25rem]">
                     {contact.phone}
                   </a>
                 </div>
@@ -95,7 +96,7 @@ export default function LocationMap() {
                     </div>
                     <h4 className="text-sm font-extrabold text-[#1A2B3C] uppercase tracking-wide">Email</h4>
                   </div>
-                  <a href={`mailto:${contact.email}`} className="text-[#D4AF37] hover:text-[#1A2B3C] font-semibold transition-colors text-sm ml-13">
+                  <a href={`mailto:${contact.email}`} className="text-[#D4AF37] hover:text-[#1A2B3C] font-semibold transition-colors text-sm ml-[3.25rem]">
                     {contact.email}
                   </a>
                 </div>

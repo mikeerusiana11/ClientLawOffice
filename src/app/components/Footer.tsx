@@ -1,6 +1,6 @@
 'use client';
 
-import { Phone, Mail, MapPin, Scale } from 'lucide-react';
+import { Phone, Mail, MapPin, Scale, Check } from 'lucide-react';
 import { useSiteContent } from '../hooks/useSiteContent';
 
 export default function Footer() {
@@ -22,7 +22,8 @@ export default function Footer() {
               {hero.firmDescription}
             </p>
             <span className="text-[#D4AF37] text-sm font-semibold flex items-center gap-2">
-              ✓ Licensed to Practice Law
+              <Check size={14} className="flex-shrink-0" />
+              Licensed to Practice Law
             </span>
           </div>
 
@@ -40,11 +41,15 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={16} className="text-[#D4AF37] flex-shrink-0" />
-                <span className="text-white/80">{contact.phone}</span>
+                <a href={`tel:${contact.phone.replace(/\s/g, '')}`} className="text-white/80 hover:text-[#D4AF37] transition-colors">
+                  {contact.phone}
+                </a>
               </div>
               <div className="flex items-center gap-3">
                 <Mail size={16} className="text-[#D4AF37] flex-shrink-0" />
-                <span className="text-white/80">{contact.email}</span>
+                <a href={`mailto:${contact.email}`} className="text-white/80 hover:text-[#D4AF37] transition-colors break-words">
+                  {contact.email}
+                </a>
               </div>
             </div>
           </div>
@@ -65,7 +70,10 @@ export default function Footer() {
             </h4>
             <ul className="text-sm text-white/70 space-y-2">
               {services.map(s => (
-                <li key={s.id}>• {s.title}</li>
+                <li key={s.id} className="flex items-center gap-2">
+                  <span className="w-1 h-1 rounded-full bg-[#D4AF37] flex-shrink-0" />
+                  {s.title}
+                </li>
               ))}
             </ul>
           </div>
@@ -92,7 +100,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#contact" className="hover:text-[#D4AF37] transition-colors">
+                <a href="#location" className="hover:text-[#D4AF37] transition-colors">
                   Contact
                 </a>
               </li>
@@ -106,7 +114,7 @@ export default function Footer() {
               <Phone size={15} className="text-[#D4AF37] flex-shrink-0" />
               {contact.phone}
             </a>
-            <a href={`mailto:${contact.email}`} className="flex items-center gap-2 text-sm text-white/70 hover:text-[#D4AF37] transition-colors break-all">
+            <a href={`mailto:${contact.email}`} className="flex items-center gap-2 text-sm text-white/70 hover:text-[#D4AF37] transition-colors break-words">
               <Mail size={15} className="text-[#D4AF37] flex-shrink-0" />
               {contact.email}
             </a>
@@ -127,18 +135,7 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-sm text-white/60 border-t border-white/20 pt-6">
-          <p>&copy; 2026 Miller Law Office. All rights reserved.</p>
-          <div className="flex flex-wrap gap-4">
-            <a href="#" className="hover:text-[#D4AF37] transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-[#D4AF37] transition-colors">
-              Terms of Service
-            </a>
-            <a href="#" className="hover:text-[#D4AF37] transition-colors">
-              Accessibility
-            </a>
-          </div>
+          <p>&copy; {new Date().getFullYear()} Miller Law Office. All rights reserved.</p>
         </div>
       </div>
     </footer>

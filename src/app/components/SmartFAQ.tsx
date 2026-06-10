@@ -75,16 +75,20 @@ export default function SmartFAQ() {
                 </h3>
                 <ChevronDown
                   size={20}
-                  className={`text-[#6B7280] flex-shrink-0 transition-transform duration-300 ${
-                    openIndex === index ? 'rotate-180 text-[#D4AF37]' : ''
+                  className={`flex-shrink-0 transition-transform duration-300 ${
+                    openIndex === index ? 'rotate-180 text-[#A67C00]' : 'text-[#6B7280]'
                   }`}
                 />
               </button>
-              {openIndex === index && (
-                <div className="px-6 py-5 bg-[#F9FAFB] border-t border-[#E5E7EB]">
-                  <p className="text-[#6B7280] leading-relaxed">{faq.answer}</p>
+              <div
+                className={`grid transition-all duration-300 ease-in-out ${openIndex === index ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+              >
+                <div className="overflow-hidden">
+                  <div className="px-6 py-5 bg-[#F9FAFB] border-t border-[#E5E7EB]">
+                    <p className="text-[#6B7280] leading-relaxed">{faq.answer}</p>
+                  </div>
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>
